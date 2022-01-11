@@ -59,9 +59,9 @@ export class ChatGateway {
    */
   @SubscribeMessage('connect')
   public handleConnection(socket: Socket) {
-    // use customer service id
-    // socket.to(socket.handshake.auth.id);
-    console.log('handleConnection', socket.id);
+    // default use customer service id for room
+    socket.join(String(socket.handshake.auth.id));
+    // console.log('handleConnection--', socket.id);
   }
 
   @SubscribeMessage('wechat.message')
@@ -80,6 +80,6 @@ export class ChatGateway {
       this.config.get<string>('REDIS_PUBLISH_WECHAT_CHAT_CHANNEL'),
       content,
     );
-    console.log('hello');
+    // console.log('hello');
   }
 }

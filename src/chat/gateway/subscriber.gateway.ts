@@ -19,9 +19,13 @@ export class SubscriberGateway {
    * @param config ConfigService
    */
   public constructor(private readonly config: ConfigService) {
+    this.subscriberFromTencent();
+  }
+
+  public subscriberFromTencent(): void {
     (async () => {
       const client = createClient({
-        url: config.get<string>('REDIS_CONNECT_URL'),
+        url: this.config.get<string>('REDIS_CONNECT_URL'),
       });
 
       // redis connect error
@@ -33,7 +37,7 @@ export class SubscriberGateway {
       await subscriber.connect();
       // subscriber channel
       await subscriber.subscribe(
-        config.get<string>('REDIS_SUBSCRIBER_WECHAT_CHAT_CHANNEL'),
+        this.config.get<string>('REDIS_SUBSCRIBER_WECHAT_CHAT_CHANNEL'),
         (message: string) => {
           const parseMessage = JSON.parse(message);
           console.log('parseMessage', parseMessage);
