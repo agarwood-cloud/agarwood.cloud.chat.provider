@@ -22,6 +22,9 @@ export class SubscriberGateway {
     this.subscriberFromTencent();
   }
 
+  /**
+   * Subscriber message from tencent, and send to customer service
+   */
   public subscriberFromTencent(): void {
     (async () => {
       const client = createClient({
