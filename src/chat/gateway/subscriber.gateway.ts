@@ -20,6 +20,8 @@ export class SubscriberGateway {
    */
   public constructor(private readonly config: ConfigService) {
     this.subscriberFromTencent();
+
+    this.subscriberFromCustomer();
   }
 
   /**
@@ -43,10 +45,46 @@ export class SubscriberGateway {
         this.config.get<string>('REDIS_SUBSCRIBER_WECHAT_CHAT_CHANNEL'),
         (message: string) => {
           const parseMessage = JSON.parse(message);
-          console.log('parseMessage', parseMessage);
+          // console.log('parseMessage', parseMessage);
           // send to customer service
           this.server
             .to(parseMessage.toUserName)
+            .emit(parseMessage.msgType, parseMessage);
+        },
+      );
+
+      // Gracefully close a client's connection to Redis, by sending the QUIT command to the server
+      // await client.quit();
+    })();
+  }
+
+  /**
+   * Subscriber message from customer, and send to customer service
+   */
+  public subscriberFromCustomer(): void {
+    (async () => {
+      const client = createClient({
+        url: this.config.get<string>('REDIS_CONNECT_URL'),
+      });
+
+      // redis connect error
+      client.on('error', (err) => console.log('Redis Client Error', err));
+      await client.connect();
+
+      // Subscribing to a channel requires a dedicated stand-alone connection
+      const subscriber = client.duplicate();
+      await subscriber.connect();
+      // subscriber channel
+      await subscriber.subscribe(
+        this.config.get<string>(
+          'REDIS_SUBSCRIBER_WECHAT_CUSTOMER_CHAT_CHANNEL',
+        ),
+        (message: string) => {
+          const parseMessage = JSON.parse(message);
+          // console.log('parseMessage:customer', parseMessage);
+          // send to customer service
+          this.server
+            .to(parseMessage.fromUserId)
             .emit(parseMessage.msgType, parseMessage);
         },
       );
