@@ -3,7 +3,7 @@
   "private": true,
   "version": "1.0.0",
   "description": "Agarwood Cloud",
-  "license": "GPL-3.0-only",
+  "license": "GPL-3.0",
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "nest build",
