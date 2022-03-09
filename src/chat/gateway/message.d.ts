@@ -2,8 +2,8 @@ export interface TextMessage {
   id?: string | number;
   platformId: string | number;
   toUserName: string;
-  fromUserId: string;
-  // fromUserName: string;
+  // fromUserId: string;
+  fromUserName: string;
   createdAt: string;
   msgType: 'text.message' | 'server.text.message';
   content: string;
@@ -14,8 +14,8 @@ export interface ImageMessage {
   id?: string | number;
   platformId: string | number;
   toUserName: string;
-  fromUserId: string;
-  // fromUserName: string;
+  // fromUserId: string;
+  fromUserName: string;
   createdAt: string;
   msgType: 'image.message' | 'server.image.message';
   mediaId: string;
@@ -27,8 +27,8 @@ export interface NewsItemMessage {
   id?: string | number;
   platformId: string | number;
   toUserName: string;
-  fromUserId: string;
-  // fromUserName: string;
+  // fromUserId: string;
+  fromUserName: string;
   createdAt: string;
   msgType: 'news.item.message' | 'server.news.item.message';
   sender: 'user' | 'customer';
@@ -42,8 +42,8 @@ export interface VoiceMessage {
   id?: string | number;
   platformId: string | number;
   toUserName: string;
-  fromUserId: string;
-  // "fromUserName": string;
+  // fromUserId: string;
+  fromUserName: string;
   createdAt: string;
   msgType: 'voice.message' | 'server.voice.message';
   mediaId: string;
@@ -55,8 +55,8 @@ export interface VideoMessage {
   id?: string | number;
   platformId: string | number;
   toUserName: string;
-  fromUserId: string;
-  // "fromUserName":string;
+  // fromUserId: string;
+  fromUserName:string;
   createdAt: string;
   msgType: 'video.message' | 'server.video.message';
   title: string;
