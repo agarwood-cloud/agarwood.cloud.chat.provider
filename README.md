@@ -11,6 +11,10 @@ Agarwood Cloud
 ```bash
 $ npm install
 ```
+or
+```bash
+$ yarn install
+```
 
 ## Running the app
 
@@ -47,6 +51,6 @@ Agarwood is an GPL v3 licensed open source project. It can grow thanks to the sp
 - Author - [Agarwood](https://github.com/agarwood-cloud/agarwood)
 - Website - [https://www.agarwood-cloud.com](https://www.agarwood-cloud.com/)
 
-## License
+### License
 
-  Nest is [GPL licensed](LICENSE).
+Agarwood is an open-source software licensed under the [./LICENSE](LICENSE)
