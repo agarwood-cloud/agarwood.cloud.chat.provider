@@ -1,0 +1,27 @@
+version: '3.9'
+services:
+  chat:
+    image: "node:14-alpine"
+    command: ['yarn', 'start:dev']
+    container_name: agarwood-chat
+    restart: always
+    ports:
+      - '3000:3000'
+    depends_on:
+      - redis
+    networks:
+      - agarwood_net
+    volumes:
+      - ./:/var/www/agarwood
+    working_dir: /var/www/agarwood
+  redis:
+    image: "redis:6.2-alpine"
+    container_name: redis-server
+    restart: always
+    ports:
+      - "16379:6379"
+    networks:
+      - agarwood_net
+networks:
+  agarwood_net:
+    driver: bridge
