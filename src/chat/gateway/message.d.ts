@@ -1,6 +1,6 @@
 export interface TextMessage {
   id?: string | number;
-  officialAccountId: string | number;
+  platformId: string | number;
   toUserName: string;
   fromUserId: string;
   // fromUserName: string;
@@ -12,7 +12,7 @@ export interface TextMessage {
 
 export interface ImageMessage {
   id?: string | number;
-  officialAccountId: string | number;
+  platformId: string | number;
   toUserName: string;
   fromUserId: string;
   // fromUserName: string;
@@ -25,7 +25,7 @@ export interface ImageMessage {
 
 export interface NewsItemMessage {
   id?: string | number;
-  officialAccountId: string | number;
+  platformId: string | number;
   toUserName: string;
   fromUserId: string;
   // fromUserName: string;
@@ -40,7 +40,7 @@ export interface NewsItemMessage {
 
 export interface VoiceMessage {
   id?: string | number;
-  officialAccountId: string | number;
+  platformId: string | number;
   toUserName: string;
   fromUserId: string;
   // "fromUserName": string;
@@ -53,7 +53,7 @@ export interface VoiceMessage {
 
 export interface VideoMessage {
   id?: string | number;
-  officialAccountId: string | number;
+  platformId: string | number;
   toUserName: string;
   fromUserId: string;
   // "fromUserName":string;

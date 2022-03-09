@@ -75,7 +75,7 @@ export class ChatGateway {
       | VideoMessage,
   ): void {
     // todo auth
-    const content = JSON.stringify(data);
+    const content: string = JSON.stringify(data);
     this.redis.publish(
       this.config.get<string>('REDIS_PUBLISH_WECHAT_CHAT_CHANNEL'),
       content,
