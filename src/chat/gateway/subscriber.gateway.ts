@@ -47,9 +47,14 @@ export class SubscriberGateway {
           const parseMessage = JSON.parse(message);
           // console.log('parseMessage', parseMessage);
           // send to customer service
-          this.server
-            .to(parseMessage.toUserName)
-            .emit(parseMessage.msgType, parseMessage);
+          console.log('send to customer service', parseMessage);
+          try {
+            this.server
+              .to(String(parseMessage.toUserName))
+              .emit(parseMessage.msgType, parseMessage);
+          } catch (error) {
+            console.log('REDIS_SUBSCRIBER_WECHAT_CHAT_CHANNEL: ERROR:', error);
+          }
         },
       );
 
@@ -83,9 +88,17 @@ export class SubscriberGateway {
           const parseMessage = JSON.parse(message);
           // console.log('parseMessage:customer', parseMessage);
           // send to customer service
-          this.server
-            .to(parseMessage.fromUserId)
-            .emit(parseMessage.msgType, parseMessage);
+          try {
+            console.log('send to customer service', parseMessage);
+            this.server
+              .to(String(parseMessage.fromUserId))
+              .emit(parseMessage.msgType, parseMessage);
+          } catch (error) {
+            console.log(
+              'REDIS_SUBSCRIBER_WECHAT_CUSTOMER_CHAT_CHANNEL: ERROR:',
+              error,
+            );
+          }
         },
       );
 

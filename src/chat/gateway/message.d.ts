@@ -56,7 +56,7 @@ export interface VideoMessage {
   platformId: string | number;
   toUserName: string;
   // fromUserId: string;
-  fromUserName:string;
+  fromUserName: string;
   createdAt: string;
   msgType: 'video.message' | 'server.video.message';
   title: string;
