@@ -47,7 +47,7 @@ export class SubscriberGateway {
           const parseMessage = JSON.parse(message);
           // console.log('parseMessage', parseMessage);
           // send to customer service
-          console.log('send to customer service', parseMessage);
+          // console.log('send to customer service', parseMessage);
           try {
             this.server
               .to(String(parseMessage.toUserName))
@@ -89,9 +89,9 @@ export class SubscriberGateway {
           // console.log('parseMessage:customer', parseMessage);
           // send to customer service
           try {
-            console.log('send to customer service', parseMessage);
+            // console.log('send to customer service', parseMessage);
             this.server
-              .to(String(parseMessage.fromUserId))
+              .to(String(parseMessage.fromUserName))
               .emit(parseMessage.msgType, parseMessage);
           } catch (error) {
             console.log(
