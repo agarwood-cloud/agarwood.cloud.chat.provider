@@ -61,7 +61,7 @@ export class ChatGateway {
   public handleConnection(socket: Socket) {
     // default use customer service id for room
     socket.join(String(socket.handshake.auth.id));
-    // console.log('handleConnection--', socket.id);
+    console.log('handshake success and join room:', socket.handshake.auth.id);
   }
 
   @SubscribeMessage('wechat.message')

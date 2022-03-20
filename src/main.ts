@@ -11,4 +11,4 @@ async function bootstrap() {
   // Redis Adapter
   // app.useWebSocketAdapter(new RedisIoAdapter(app));
 }
-bootstrap().then((r) => r);
+bootstrap().then((r) => console.log(`bootstrap ${r}`));

@@ -47,7 +47,7 @@ export class SubscriberGateway {
           const parseMessage = JSON.parse(message);
           // console.log('parseMessage', parseMessage);
           // send to customer service
-          // console.log('send to customer service', parseMessage);
+          // console.log('tencent send to customer service:', parseMessage);
           try {
             this.server
               .to(String(parseMessage.toUserName))
