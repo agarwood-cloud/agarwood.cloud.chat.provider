@@ -2,6 +2,8 @@ import { WebSocketGateway, WebSocketServer } from '@nestjs/websockets';
 import { Server } from 'socket.io';
 import { createClient } from 'redis';
 import { ConfigService } from '@nestjs/config';
+import { RedisService } from '@liaoliaots/nestjs-redis';
+import Redis from 'ioredis';
 
 @WebSocketGateway({
   cors: {
@@ -13,12 +15,19 @@ export class SubscriberGateway {
   @WebSocketServer()
   public server: Server;
 
+  private readonly redis: Redis;
+
   /**
    * constructor
    *
    * @param config ConfigService
    */
-  public constructor(private readonly config: ConfigService) {
+  public constructor(
+    private readonly config: ConfigService,
+    private readonly redisService: RedisService,
+  ) {
+    this.redis = this.redisService.getClient();
+
     this.subscriberFromTencent();
 
     this.subscriberFromCustomer();

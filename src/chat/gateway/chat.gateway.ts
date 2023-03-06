@@ -12,7 +12,8 @@ import {
   VideoMessage,
   VoiceMessage,
 } from './message';
-import { createClient } from 'redis';
+import { RedisService } from '@liaoliaots/nestjs-redis';
+import Redis from 'ioredis';
 
 @WebSocketGateway({
   cors: {
@@ -21,7 +22,7 @@ import { createClient } from 'redis';
   namespace: 'chat',
 })
 export class ChatGateway {
-  public redis;
+  private readonly redis: Redis;
 
   @WebSocketServer()
   public server: Server;
@@ -31,25 +32,30 @@ export class ChatGateway {
    *
    * @param config ConfigService
    */
-  public constructor(private readonly config: ConfigService) {
-    (async () => {
-      const client = createClient({
-        url: config.get<string>('REDIS_CONNECT_URL'),
-      });
+  public constructor(
+    private readonly config: ConfigService,
+    private readonly redisService: RedisService,
+  ) {
+    this.redis = this.redisService.getClient();
 
-      // redis connect error
-      client.on('error', (err) => console.log('Redis Client Error', err));
-      await client.connect();
-
-      // Subscribing to a channel requires a dedicated stand-alone connection
-      if (!this.redis) {
-        this.redis = client.duplicate();
-        await this.redis.connect();
-      }
-
-      // Gracefully close a client's connection to Redis, by sending the QUIT command to the server
-      // await client.quit();
-    })();
+    // (async () => {
+    //   const client = createClient({
+    //     url: config.get<string>('REDIS_CONNECT_URL'),
+    //   });
+    //
+    //   // redis connect error
+    //   client.on('error', (err) => console.log('Redis Client Error', err));
+    //   await client.connect();
+    //
+    //   // Subscribing to a channel requires a dedicated stand-alone connection
+    //   if (!this.redis) {
+    //     this.redis = client.duplicate();
+    //     await this.redis.connect();
+    //   }
+    //
+    //   // Gracefully close a client's connection to Redis, by sending the QUIT command to the server
+    //   // await client.quit();
+    // })();
   }
 
   /**
